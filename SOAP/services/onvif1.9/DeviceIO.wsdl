@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<wsdl:definitions
+	name="DeviceIO"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
+	xmlns:tns="urn:pelco:services:extension:onvif:deviceIO:1"
+	xmlns:fault="urn:schemas-pelco-com:fault"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	targetNamespace="urn:pelco:services:extension:onvif:deviceIO:1">
+
+	<wsdl:documentation>
+		$Id: DeviceIO.wsdl 1169 2010-08-27 23:29:45Z dpaul $
+	</wsdl:documentation>
+
+	<!-- Types -->
+
+	<wsdl:types>
+		<xsd:schema
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="urn:pelco:services:extension:onvif:deviceIO:1">
+			<xsd:import namespace="urn:schemas-pelco-com:fault" schemaLocation="fault.xsd"/>
+
+			<!-- Generic type (ONVIF) -->
+			<xsd:complexType name="DeviceEntity">
+				<xsd:attribute name="token" type="tns:ReferenceToken" use="required"/>
+			</xsd:complexType>
+
+			<!-- Generic Type (ONVIF) -->
+			<xsd:simpleType name="ReferenceToken">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="64"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:complexType name="AlarmInputSettings">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="en">
+						The current configuration state of the alarm input.
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:sequence>
+					<xsd:element name="polarity" type="xsd:int">
+					    <xsd:annotation>
+					        <xsd:documentation xml:lang="en">
+					            The polarity of the alarm input.
+					        </xsd:documentation>
+					    </xsd:annotation>
+					</xsd:element>
+					<xsd:element name="supervised" type="xsd:int"> <!-- boolean -->
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">
+								Determines whether or not the alarm is operating in supervised mode. More specifically it determines whether or not the alarm input should be driven such that a loss of voltage to the input results in an alarm condition 0 for unsupervised 1 for supervised
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="dwellTime" type="xsd:double">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">
+								The time, in 100s milliseconds, that the alarm input should be reported as active when triggered, regardless of the actual state of the physical input. The value must be between 0 to 0.5.
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+
+            <xsd:complexType name="AlarmInput">
+                <xsd:complexContent>
+                    <xsd:extension base="tns:DeviceEntity">
+                        <xsd:sequence>
+                            <xsd:element name="Properties" type="tns:AlarmInputSettings"/>
+                            <xsd:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+                        </xsd:sequence>
+                        <xsd:anyAttribute/>
+                    </xsd:extension>
+                </xsd:complexContent>
+            </xsd:complexType>
+
+			<!-- GetAlarmInputs -->
+			<xsd:element name="GetAlarmInputs">
+				<xsd:complexType>
+					<xsd:sequence>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="GetAlarmInputsResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="AlarmInputs" type="tns:AlarmInput" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation><xsd:documentation>This message contains an array of alarm inputs.</xsd:documentation></xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- SetAlarmInputSettings -->
+			<xsd:element name="SetAlarmInputSettings">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="AlarmInputToken" type="tns:ReferenceToken">
+							<xsd:annotation><xsd:documentation>Token reference to the requested alarm input.</xsd:documentation></xsd:annotation>
+						</xsd:element>
+						<xsd:element name="Properties" type="tns:AlarmInputSettings"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="SetAlarmInputSettingsResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:schema>
+
+	</wsdl:types>
+
+	<!-- Messages -->
+
+    <wsdl:message name="GetAlarmInputsRequest">
+    	<wsdl:part name="parameters" element="tns:GetAlarmInputs"/>
+    </wsdl:message>
+    <wsdl:message name="GetAlarmInputsResponse">
+    	<wsdl:part name="parameters" element="tns:GetAlarmInputsResponse"/>
+    </wsdl:message>
+    <wsdl:message name="SetAlarmInputSettingsRequest">
+    	<wsdl:part name="parameters" element="tns:SetAlarmInputSettings"/>
+    </wsdl:message>
+    <wsdl:message name="SetAlarmInputSettingsResponse">
+    	<wsdl:part name="parameters" element="tns:SetAlarmInputSettingsResponse"/>
+    </wsdl:message>
+
+	<!-- Fault Messages -->
+
+	<wsdl:message name="UserNotAuthenticatedFault">
+		<wsdl:part name="UserNotAuthenticatedFault" element="fault:UserNotAuthenticatedFault"/>
+	</wsdl:message>
+
+	<wsdl:message name="UserNotAuthorizedFault">
+		<wsdl:part name="UserNotAuthorizedFault" element="fault:UserNotAuthorizedFault"/>
+	</wsdl:message>
+
+	<wsdl:message name="InvalidArgumentFault">
+		<wsdl:part name="InvalidArgumentFault" element="fault:InvalidArgumentFault"/>
+	</wsdl:message>
+
+	<!-- Ports -->
+
+	<wsdl:portType name="DeviceIOPortType">
+
+	    <wsdl:operation name="GetAlarmInputs">
+	    	<wsdl:documentation>Gets a list of available alarms.</wsdl:documentation>
+	    	<wsdl:input message="tns:GetAlarmInputsRequest"/>
+	    	<wsdl:output message="tns:GetAlarmInputsResponse"/>
+	    	<wsdl:fault message="fault:UserNotAuthenticatedFault"
+	    		name="UserNotAuthenticatedFault"></wsdl:fault>
+	    	<wsdl:fault message="fault:UserNotAuthorizedFault"
+	    		name="UserNotAuthorizedFault"></wsdl:fault>
+	    	<wsdl:fault message="fault:InvalidArgumentFault"
+	    		name="InvalidArgumentFault"></wsdl:fault>
+	    </wsdl:operation>
+	    <wsdl:operation name="SetAlarmInputSettings">
+	        <wsdl:documentation>This operation sets the settings of an alarm input.</wsdl:documentation>
+	    	<wsdl:input message="tns:SetAlarmInputSettingsRequest"/>
+	    	<wsdl:output message="tns:SetAlarmInputSettingsResponse"/>
+	    	<wsdl:fault message="fault:UserNotAuthenticatedFault"
+	    		name="UserNotAuthenticatedFault"></wsdl:fault>
+	    	<wsdl:fault message="fault:UserNotAuthorizedFault"
+	    		name="UserNotAuthorizedFault"></wsdl:fault>
+	    	<wsdl:fault message="fault:InvalidArgumentFault"
+	    		name="InvalidArgumentFault"></wsdl:fault>
+	    </wsdl:operation>
+
+	</wsdl:portType>
+
+	<!-- Bindings -->
+
+	<wsdl:binding name="DeviceIO" type="tns:DeviceIOPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+
+		<wsdl:operation name="GetAlarmInputs">
+			<wsdl:documentation></wsdl:documentation>
+		    <soap:operation soapAction="urn:pelco:services:extension:onvif:deviceIO:1#GetAlarmInputs" />
+			<wsdl:input><soap:body use="literal" /></wsdl:input>
+			<wsdl:output><soap:body use="literal" /></wsdl:output>
+		</wsdl:operation>
+
+	    <wsdl:operation name="SetAlarmInputSettings">
+	        <soap:operation soapAction="urn:pelco:services:extension:onvif:deviceIO:1#SetAlarmInputSettings"  />
+	        <wsdl:input>
+	            <soap:body use="literal"/>
+	        </wsdl:input>
+	        <wsdl:output>
+	            <soap:body use="literal"/>
+	        </wsdl:output>
+	    </wsdl:operation>
+	</wsdl:binding>
+
+	<!-- Services -->
+
+    <wsdl:service name="DeviceIO">
+        <wsdl:documentation>This services allows alarms to be evented from a single service. Each alarm in the service is individually identified by an alarmID.</wsdl:documentation>
+        <wsdl:port binding="tns:DeviceIO" name="DeviceIO">
+            <soap:address location="http://localhost:49152/control/DeviceIO-1" />
+		</wsdl:port>
+	</wsdl:service>
+
+</wsdl:definitions>

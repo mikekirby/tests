@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project name="ONVIF 1.9" resourceRoot="" soapui-version="3.5.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings/>
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="DeviceIO" type="wsdl" bindingName="{urn:pelco:services:extension:onvif:deviceIO:1}DeviceIO" soapVersion="1_2" anonymous="optional" definition="file:/home/mike/Projects/services/onvif1.9/DeviceIO.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <con:settings/>
+    <con:definitionCache type="TEXT" rootPart="file:/home/mike/Projects/services/onvif1.9/DeviceIO.wsdl">
+      <con:part>
+        <con:url>file:/home/mike/Projects/services/onvif1.9/DeviceIO.wsdl</con:url>
+        <con:content><![CDATA[<wsdl:definitions name="DeviceIO" targetNamespace="urn:pelco:services:extension:onvif:deviceIO:1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="urn:pelco:services:extension:onvif:deviceIO:1" xmlns:fault="urn:schemas-pelco-com:fault" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation>$Id: DeviceIO.wsdl 1169 2010-08-27 23:29:45Z dpaul $</wsdl:documentation>
+  <!--Types-->
+  <wsdl:types>
+    <xsd:schema targetNamespace="urn:pelco:services:extension:onvif:deviceIO:1" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:import namespace="urn:schemas-pelco-com:fault" schemaLocation="fault.xsd"/>
+      <!--Generic type (ONVIF)-->
+      <xsd:complexType name="DeviceEntity">
+        <xsd:attribute name="token" type="tns:ReferenceToken" use="required"/>
+      </xsd:complexType>
+      <!--Generic Type (ONVIF)-->
+      <xsd:simpleType name="ReferenceToken">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="64"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="AlarmInputSettings">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">The current configuration state of the alarm input.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="polarity" type="xsd:int">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">The polarity of the alarm input.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="supervised" type="xsd:int">
+            <!--boolean-->
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Determines whether or not the alarm is operating in supervised mode. More specifically it determines whether or not the alarm input should be driven such that a loss of voltage to the input results in an alarm condition 0 for unsupervised 1 for supervised</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="dwellTime" type="xsd:double">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">The time, in 100s milliseconds, that the alarm input should be reported as active when triggered, regardless of the actual state of the physical input. The value must be between 0 to 0.5.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="AlarmInput">
+        <xsd:complexContent>
+          <xsd:extension base="tns:DeviceEntity">
+            <xsd:sequence>
+              <xsd:element name="Properties" type="tns:AlarmInputSettings"/>
+              <xsd:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+            <xsd:anyAttribute/>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <!--GetAlarmInputs-->
+      <xsd:element name="GetAlarmInputs">
+        <xsd:complexType>
+          <xsd:sequence></xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetAlarmInputsResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="AlarmInputs" type="tns:AlarmInput" minOccurs="0" maxOccurs="unbounded">
+              <xsd:annotation>
+                <xsd:documentation>This message contains an array of alarm inputs.</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <!--SetAlarmInputSettings-->
+      <xsd:element name="SetAlarmInputSettings">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="AlarmInputToken" type="tns:ReferenceToken">
+              <xsd:annotation>
+                <xsd:documentation>Token reference to the requested alarm input.</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Properties" type="tns:AlarmInputSettings"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SetAlarmInputSettingsResponse">
+        <xsd:complexType>
+          <xsd:sequence></xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <!--Messages-->
+  <wsdl:message name="GetAlarmInputsRequest">
+    <wsdl:part name="parameters" element="tns:GetAlarmInputs"/>
+  </wsdl:message>
+  <wsdl:message name="GetAlarmInputsResponse">
+    <wsdl:part name="parameters" element="tns:GetAlarmInputsResponse"/>
+  </wsdl:message>
+  <wsdl:message name="SetAlarmInputSettingsRequest">
+    <wsdl:part name="parameters" element="tns:SetAlarmInputSettings"/>
+  </wsdl:message>
+  <wsdl:message name="SetAlarmInputSettingsResponse">
+    <wsdl:part name="parameters" element="tns:SetAlarmInputSettingsResponse"/>
+  </wsdl:message>
+  <!--Fault Messages-->
+  <wsdl:message name="UserNotAuthenticatedFault">
+    <wsdl:part name="UserNotAuthenticatedFault" element="fault:UserNotAuthenticatedFault"/>
+  </wsdl:message>
+  <wsdl:message name="UserNotAuthorizedFault">
+    <wsdl:part name="UserNotAuthorizedFault" element="fault:UserNotAuthorizedFault"/>
+  </wsdl:message>
+  <wsdl:message name="InvalidArgumentFault">
+    <wsdl:part name="InvalidArgumentFault" element="fault:InvalidArgumentFault"/>
+  </wsdl:message>
+  <!--Ports-->
+  <wsdl:portType name="DeviceIOPortType">
+    <wsdl:operation name="GetAlarmInputs">
+      <wsdl:documentation>Gets a list of available alarms.</wsdl:documentation>
+      <wsdl:input message="tns:GetAlarmInputsRequest"/>
+      <wsdl:output message="tns:GetAlarmInputsResponse"/>
+      <wsdl:fault message="fault:UserNotAuthenticatedFault" name="UserNotAuthenticatedFault"/>
+      <wsdl:fault message="fault:UserNotAuthorizedFault" name="UserNotAuthorizedFault"/>
+      <wsdl:fault message="fault:InvalidArgumentFault" name="InvalidArgumentFault"/>
+    </wsdl:operation>
+    <wsdl:operation name="SetAlarmInputSettings">
+      <wsdl:documentation>This operation sets the settings of an alarm input.</wsdl:documentation>
+      <wsdl:input message="tns:SetAlarmInputSettingsRequest"/>
+      <wsdl:output message="tns:SetAlarmInputSettingsResponse"/>
+      <wsdl:fault message="fault:UserNotAuthenticatedFault" name="UserNotAuthenticatedFault"/>
+      <wsdl:fault message="fault:UserNotAuthorizedFault" name="UserNotAuthorizedFault"/>
+      <wsdl:fault message="fault:InvalidArgumentFault" name="InvalidArgumentFault"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <!--Bindings-->
+  <wsdl:binding name="DeviceIO" type="tns:DeviceIOPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetAlarmInputs">
+      <wsdl:documentation/>
+      <soap:operation soapAction="urn:pelco:services:extension:onvif:deviceIO:1#GetAlarmInputs"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetAlarmInputSettings">
+      <soap:operation soapAction="urn:pelco:services:extension:onvif:deviceIO:1#SetAlarmInputSettings"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <!--Services-->
+  <wsdl:service name="DeviceIO">
+    <wsdl:documentation>This services allows alarms to be evented from a single service. Each alarm in the service is individually identified by an alarmID.</wsdl:documentation>
+    <wsdl:port binding="tns:DeviceIO" name="DeviceIO">
+      <soap:address location="http://localhost:49152/control/DeviceIO-1"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content>
+        <con:type>http://schemas.xmlsoap.org/wsdl/</con:type>
+      </con:part>
+      <con:part>
+        <con:url>file:/home/mike/Projects/services/onvif1.9/fault.xsd</con:url>
+        <con:content><![CDATA[<xsd:schema targetNamespace="urn:schemas-pelco-com:fault" elementFormDefault="qualified" xmlns:tt="urn:schemas-pelco-com:fault" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:complexType name="UserNotAuthenticatedFaultType">
+    <xsd:annotation>
+      <xsd:documentation>Fault for user not authenticated</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="description" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>Brief description for the fault</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="UserNotAuthenticatedFault" type="tt:UserNotAuthenticatedFaultType"/>
+  <xsd:complexType name="UserNotAuthorizedFaultType">
+    <xsd:annotation>
+      <xsd:documentation>Fault for user not authorized</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="description" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>Brief description for the fault</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="UserNotAuthorizedFault" type="tt:UserNotAuthorizedFaultType"/>
+  <xsd:complexType name="CameraLockedFaultType">
+    <xsd:annotation>
+      <xsd:documentation>Fault thrown if the camera is locked</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="userId" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>Id of user that has the camera locked</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="description" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>Brief description of the fault</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="CameraLockedFault" type="tt:CameraLockedFaultType"/>
+  <xsd:complexType name="CameraInUseFaultType">
+    <xsd:annotation>
+      <xsd:documentation>Fault thrown if the camera is in use by higher priority user</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="userId" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>Id of user that is using the camera</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="description" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>Brief description of the fault</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="CameraInUseFault" type="tt:CameraInUseFaultType"/>
+  <xsd:complexType name="InvalidArgumentFaultType">
+    <xsd:annotation>
+      <xsd:documentation>Fault thrown if the argument is invalid</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="description" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>Brief description of the camera</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="InvalidArgumentFault" type="tt:InvalidArgumentFaultType"/>
+</xsd:schema>]]></con:content>
+        <con:type>http://www.w3.org/2001/XMLSchema</con:type>
+      </con:part>
+    </con:definitionCache>
+    <con:endpoints>
+      <con:endpoint>http://localhost:49152/control/DeviceIO-1</con:endpoint>
+      <con:endpoint>http://mike-desktop:8088/onvif/services</con:endpoint>
+    </con:endpoints>
+    <con:operation isOneWay="false" action="urn:pelco:services:extension:onvif:deviceIO:1#GetAlarmInputs" name="GetAlarmInputs" bindingOperationName="GetAlarmInputs" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+      <con:settings/>
+      <con:call name="Request 1">
+        <con:settings>
+          <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+        </con:settings>
+        <con:encoding>UTF-8</con:encoding>
+        <con:endpoint>http://mike-desktop:8088/onvif/services</con:endpoint>
+        <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:pelco:services:extension:onvif:deviceIO:1">
+   <soap:Header/>
+   <soap:Body>
+      <urn:GetAlarmInputs/>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
+        <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+        <con:jmsPropertyConfig/>
+        <con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:pelco:services:extension:onvif:deviceIO:1/DeviceIOPortType/GetAlarmInputsRequest"/>
+        <con:wsrmConfig version="1.2"/>
+      </con:call>
+    </con:operation>
+    <con:operation isOneWay="false" action="urn:pelco:services:extension:onvif:deviceIO:1#SetAlarmInputSettings" name="SetAlarmInputSettings" bindingOperationName="SetAlarmInputSettings" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+      <con:settings/>
+      <con:call name="Request 1">
+        <con:settings>
+          <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+        </con:settings>
+        <con:encoding>UTF-8</con:encoding>
+        <con:endpoint>http://mike-desktop:8088/onvif/services</con:endpoint>
+        <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:pelco:services:extension:onvif:deviceIO:1">
+   <soap:Header/>
+   <soap:Body>
+      <urn:SetAlarmInputSettings>
+         <AlarmInputToken>bank-kirby</AlarmInputToken>
+         <Properties>
+            <polarity>0</polarity>
+            <supervised>0</supervised>
+            <dwellTime>1</dwellTime>
+         </Properties>
+      </urn:SetAlarmInputSettings>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
+        <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+        <con:jmsPropertyConfig/>
+        <con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:pelco:services:extension:onvif:deviceIO:1/DeviceIOPortType/SetAlarmInputSettingsRequest"/>
+        <con:wsrmConfig version="1.2"/>
+      </con:call>
+    </con:operation>
+  </con:interface>
+  <con:mockService port="8088" path="/onvif/services" host="mike-desktop" name="DeviceIO MockService" bindToHostOnly="false" docroot="">
+    <con:settings>
+      <con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting>
+    </con:settings>
+    <con:mockOperation name="GetAlarmInputs" interface="DeviceIO" operation="GetAlarmInputs">
+      <con:settings/>
+      <con:dispatchStyle>SEQUENCE</con:dispatchStyle>
+      <con:defaultResponse>Response 1</con:defaultResponse>
+      <con:response name="Response 1" encoding="UTF-8">
+        <con:settings/>
+        <con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:pelco:services:extension:onvif:deviceIO:1">
+   <soap:Header/>
+   <soap:Body>
+      <urn:GetAlarmInputsResponse>
+         <!--Zero or more repetitions:-->
+         <AlarmInputs token="board-kirby">
+            <Properties>
+               <polarity>0</polarity>
+               <supervised>0</supervised>
+               <dwellTime>1</dwellTime>
+            </Properties>
+            <!--You may enter ANY elements at this point-->
+         </AlarmInputs>
+      </urn:GetAlarmInputsResponse>
+   </soap:Body>
+</soap:Envelope>]]></con:responseContent>
+        <con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:pelco:services:extension:onvif:deviceIO:1/DeviceIOPortType/GetAlarmInputsResponse"/>
+      </con:response>
+      <con:dispatchConfig/>
+    </con:mockOperation>
+    <con:mockOperation name="SetAlarmInputSettings" interface="DeviceIO" operation="SetAlarmInputSettings">
+      <con:settings/>
+      <con:dispatchStyle>SEQUENCE</con:dispatchStyle>
+      <con:defaultResponse>Response 1</con:defaultResponse>
+      <con:response name="Response 1" encoding="UTF-8">
+        <con:settings/>
+        <con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:pelco:services:extension:onvif:deviceIO:1">
+   <soap:Header/>
+   <soap:Body>
+      <urn:SetAlarmInputSettingsResponse/>
+   </soap:Body>
+</soap:Envelope>]]></con:responseContent>
+        <con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:pelco:services:extension:onvif:deviceIO:1/DeviceIOPortType/SetAlarmInputSettingsResponse"/>
+      </con:response>
+      <con:dispatchConfig/>
+    </con:mockOperation>
+    <con:properties/>
+  </con:mockService>
+  <con:properties/>
+  <con:wssContainer/>
+</con:soapui-project>

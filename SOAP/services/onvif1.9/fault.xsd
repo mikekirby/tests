@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:tt="urn:schemas-pelco-com:fault" 
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+           targetNamespace="urn:schemas-pelco-com:fault" elementFormDefault="qualified">
+
+  <xsd:complexType name="UserNotAuthenticatedFaultType">
+    <xsd:annotation>
+      <xsd:documentation>
+        Fault for user not authenticated
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="description" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>
+            Brief description for the fault
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="UserNotAuthenticatedFault" type="tt:UserNotAuthenticatedFaultType" />
+
+  <xsd:complexType name="UserNotAuthorizedFaultType">
+    <xsd:annotation>
+      <xsd:documentation>
+        Fault for user not authorized
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="description" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>
+            Brief description for the fault
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="UserNotAuthorizedFault" type="tt:UserNotAuthorizedFaultType" />
+
+  <xsd:complexType name="CameraLockedFaultType">
+    <xsd:annotation>
+      <xsd:documentation>
+        Fault thrown if the camera is locked
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="userId" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>
+            Id of user that has the camera locked
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="description" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>
+            Brief description of the fault
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="CameraLockedFault" type="tt:CameraLockedFaultType" />
+
+  <xsd:complexType name="CameraInUseFaultType">
+    <xsd:annotation>
+      <xsd:documentation>
+        Fault thrown if the camera is in use by higher priority user
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="userId" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>
+            Id of user that is using the camera
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="description" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>
+            Brief description of the fault
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="CameraInUseFault" type="tt:CameraInUseFaultType" />
+
+  <xsd:complexType name="InvalidArgumentFaultType">
+    <xsd:annotation>
+      <xsd:documentation>
+        Fault thrown if the argument is invalid
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="description" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>
+            Brief description of the camera
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="InvalidArgumentFault" type="tt:InvalidArgumentFaultType" />
+	
+</xsd:schema>

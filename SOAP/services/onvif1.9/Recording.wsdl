@@ -1,0 +1,688 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (c) 2008-2010 by ONVIF: Open Network Video Interface Forum. All rights reserved.
+
+Recipients of this document may copy, distribute, publish, or display this document so long as this copyright notice, license and disclaimer are retained with all copies of the document. No license is granted to modify this document.
+
+THIS DOCUMENT IS PROVIDED "AS IS," AND THE CORPORATION AND ITS MEMBERS AND THEIR AFFILIATES, MAKE NO REPRESENTATIONS OR WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO, WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, OR TITLE; THAT THE CONTENTS OF THIS DOCUMENT ARE SUITABLE FOR ANY PURPOSE; OR THAT THE IMPLEMENTATION OF SUCH CONTENTS WILL NOT INFRINGE ANY PATENTS, COPYRIGHTS, TRADEMARKS OR OTHER RIGHTS.
+IN NO EVENT WILL THE CORPORATION OR ITS MEMBERS OR THEIR AFFILIATES BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, PUNITIVE OR CONSEQUENTIAL DAMAGES, ARISING OUT OF OR RELATING TO ANY USE OR DISTRIBUTION OF THIS DOCUMENT, WHETHER OR NOT (1) THE CORPORATION, MEMBERS OR THEIR AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES, OR (2) SUCH DAMAGES WERE REASONABLY FORESEEABLE, AND ARISING OUT OF OR RELATING TO ANY USE OR DISTRIBUTION OF THIS DOCUMENT.  THE FOREGOING DISCLAIMER AND LIMITATION ON LIABILITY DO NOT APPLY TO, INVALIDATE, OR LIMIT REPRESENTATIONS AND WARRANTIES MADE BY THE MEMBERS AND THEIR RESPECTIVE AFFILIATES TO THE CORPORATION AND OTHER MEMBERS IN CERTAIN WRITTEN POLICIES OF THE CORPORATION.
+-->
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:trc="http://www.onvif.org/recording/wsdl" targetNamespace="http://www.onvif.org/recording/wsdl">
+	<wsdl:types>
+		<xs:schema targetNamespace="http://www.onvif.org/recording/wsdl" xmlns:tt="http://www.onvif.org/ver10/schema" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+			<xs:import namespace="http://www.onvif.org/ver10/schema" schemaLocation="onvif.xsd"/>
+			<!--  Message Request/Responses elements  -->
+			<!--===============================-->
+			<xs:element name="CreateRecording">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="RecordingConfiguration" type="tt:RecordingConfiguration"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="CreateRecordingResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="RecordingToken" type="tt:RecordingReference"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="DeleteRecording">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="RecordingToken" type="tt:RecordingReference"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="DeleteRecordingResponse">
+				<xs:complexType>
+					<xs:sequence>
+			          </xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetRecordings">
+				<xs:complexType>
+					<xs:sequence>
+			          </xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetRecordingsResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="RecordingItem" type="tt:GetRecordingsResponseItem" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SetRecordingConfiguration">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="RecordingToken" type="tt:RecordingReference"/>
+						<xs:element name="RecordingConfiguration" type="tt:RecordingConfiguration"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SetRecordingConfigurationResponse">
+				<xs:complexType>
+					<xs:sequence>
+			          </xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetRecordingConfiguration">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="RecordingToken" type="tt:RecordingReference"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetRecordingConfigurationResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="RecordingConfiguration" type="tt:RecordingConfiguration"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="CreateTrack">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="RecordingToken" type="tt:RecordingReference"/>
+						<xs:element name="TrackConfiguration" type="tt:TrackConfiguration"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="CreateTrackResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="TrackToken" type="tt:TrackReference"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="DeleteTrack">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="RecordingToken" type="tt:RecordingReference"/>
+						<xs:element name="TrackToken" type="tt:TrackReference"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="DeleteTrackResponse">
+				<xs:complexType>
+					<xs:sequence>
+			          </xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetTrackConfiguration">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="RecordingToken" type="tt:RecordingReference"/>
+						<xs:element name="TrackToken" type="tt:TrackReference"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetTrackConfigurationResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="TrackConfiguration" type="tt:TrackConfiguration"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SetTrackConfiguration">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="RecordingToken" type="tt:RecordingReference"/>
+						<xs:element name="TrackToken" type="tt:TrackReference"/>
+						<xs:element name="TrackConfiguration" type="tt:TrackConfiguration"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SetTrackConfigurationResponse">
+				<xs:complexType>
+					<xs:sequence>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="CreateRecordingJob">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="JobConfiguration" type="tt:RecordingJobConfiguration"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="CreateRecordingJobResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="JobToken" type="tt:RecordingJobReference"/>
+						<xs:element name="JobConfiguration" type="tt:RecordingJobConfiguration"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="DeleteRecordingJob">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="JobToken" type="tt:RecordingJobReference"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="DeleteRecordingJobResponse">
+				<xs:complexType>
+					<xs:sequence>
+			          </xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetRecordingJobs">
+				<xs:complexType>
+					<xs:sequence>
+			          </xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetRecordingJobsResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="JobItem" type="tt:GetRecordingJobsResponseItem" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SetRecordingJobConfiguration">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="JobToken" type="tt:RecordingJobReference"/>
+						<xs:element name="JobConfiguration" type="tt:RecordingJobConfiguration"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SetRecordingJobConfigurationResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="JobConfiguration" type="tt:RecordingJobConfiguration"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetRecordingJobConfiguration">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="JobToken" type="tt:RecordingJobReference"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetRecordingJobConfigurationResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="JobConfiguration" type="tt:RecordingJobConfiguration"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SetRecordingJobMode">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="JobToken" type="tt:RecordingJobReference"/>
+						<xs:element name="Mode" type="tt:RecordingJobMode"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SetRecordingJobModeResponse">
+				<xs:complexType>
+					<xs:sequence>
+			          </xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetRecordingJobState">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="JobToken" type="tt:RecordingJobReference"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetRecordingJobStateResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="State" type="tt:RecordingJobStateInformation"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="DeleteData">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="RecordingToken" type="tt:RecordingReference" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element name="StartTime" type="tt:Time"/>
+						<xs:element name="EndTime" type="tt:Time"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="DeleteDataResponse">
+				<xs:complexType>
+					<xs:sequence>
+			          </xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="LockRecording">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="RecordingToken" type="tt:RecordingReference" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element name="StartTime" type="tt:Time"/>
+						<xs:element name="EndTime" type="tt:Time"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="LockRecordingResponse">
+				<xs:complexType>
+					<xs:sequence>
+			          </xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="UnlockRecording">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="RecordingToken" type="tt:RecordingReference" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element name="StartTime" type="tt:Time"/>
+						<xs:element name="EndTime" type="tt:Time"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="UnlockRecordingResponse">
+				<xs:complexType>
+					<xs:sequence>
+			          </xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetLockedRanges">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="RecordingToken" type="tt:RecordingReference"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetLockedRangesResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Range" type="tt:GetLockedRangesItem" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="CreateRecordingRequest">
+		<wsdl:part name="parameters" element="trc:CreateRecording"/>
+	</wsdl:message>
+	<wsdl:message name="CreateRecordingResponse">
+		<wsdl:part name="parameters" element="trc:CreateRecordingResponse"/>
+	</wsdl:message>
+	<wsdl:message name="DeleteRecordingRequest">
+		<wsdl:part name="parameters" element="trc:DeleteRecording"/>
+	</wsdl:message>
+	<wsdl:message name="DeleteRecordingResponse">
+		<wsdl:part name="parameters" element="trc:DeleteRecordingResponse"/>
+	</wsdl:message>
+	<wsdl:message name="GetRecordingsRequest">
+		<wsdl:part name="parameters" element="trc:GetRecordings"/>
+	</wsdl:message>
+	<wsdl:message name="GetRecordingsResponse">
+		<wsdl:part name="parameters" element="trc:GetRecordingsResponse"/>
+	</wsdl:message>
+	<wsdl:message name="SetRecordingConfigurationRequest">
+		<wsdl:part name="parameters" element="trc:SetRecordingConfiguration"/>
+	</wsdl:message>
+	<wsdl:message name="SetRecordingConfigurationResponse">
+		<wsdl:part name="parameters" element="trc:SetRecordingConfigurationResponse"/>
+	</wsdl:message>
+	<wsdl:message name="GetRecordingConfigurationRequest">
+		<wsdl:part name="parameters" element="trc:GetRecordingConfiguration"/>
+	</wsdl:message>
+	<wsdl:message name="GetRecordingConfigurationResponse">
+		<wsdl:part name="parameters" element="trc:GetRecordingConfigurationResponse"/>
+	</wsdl:message>
+	<wsdl:message name="CreateTrackRequest">
+		<wsdl:part name="parameters" element="trc:CreateTrack"/>
+	</wsdl:message>
+	<wsdl:message name="CreateTrackResponse">
+		<wsdl:part name="parameters" element="trc:CreateTrackResponse"/>
+	</wsdl:message>
+	<wsdl:message name="DeleteTrackRequest">
+		<wsdl:part name="parameters" element="trc:DeleteTrack"/>
+	</wsdl:message>
+	<wsdl:message name="DeleteTrackResponse">
+		<wsdl:part name="parameters" element="trc:DeleteTrackResponse"/>
+	</wsdl:message>
+	<wsdl:message name="GetTrackConfigurationRequest">
+		<wsdl:part name="parameters" element="trc:GetTrackConfiguration"/>
+	</wsdl:message>
+	<wsdl:message name="GetTrackConfigurationResponse">
+		<wsdl:part name="parameters" element="trc:GetTrackConfigurationResponse"/>
+	</wsdl:message>
+	<wsdl:message name="SetTrackConfigurationRequest">
+		<wsdl:part name="parameters" element="trc:SetTrackConfiguration"/>
+	</wsdl:message>
+	<wsdl:message name="SetTrackConfigurationResponse">
+		<wsdl:part name="parameters" element="trc:SetTrackConfigurationResponse"/>
+	</wsdl:message>
+	<wsdl:message name="CreateRecordingJobRequest">
+		<wsdl:part name="parameters" element="trc:CreateRecordingJob"/>
+	</wsdl:message>
+	<wsdl:message name="CreateRecordingJobResponse">
+		<wsdl:part name="parameters" element="trc:CreateRecordingJobResponse"/>
+	</wsdl:message>
+	<wsdl:message name="DeleteRecordingJobRequest">
+		<wsdl:part name="parameters" element="trc:DeleteRecordingJob"/>
+	</wsdl:message>
+	<wsdl:message name="DeleteRecordingJobResponse">
+		<wsdl:part name="parameters" element="trc:DeleteRecordingJobResponse"/>
+	</wsdl:message>
+	<wsdl:message name="GetRecordingJobsRequest">
+		<wsdl:part name="parameters" element="trc:GetRecordingJobs"/>
+	</wsdl:message>
+	<wsdl:message name="GetRecordingJobsResponse">
+		<wsdl:part name="parameters" element="trc:GetRecordingJobsResponse"/>
+	</wsdl:message>
+	<wsdl:message name="SetRecordingJobConfigurationRequest">
+		<wsdl:part name="parameters" element="trc:SetRecordingJobConfiguration"/>
+	</wsdl:message>
+	<wsdl:message name="SetRecordingJobConfigurationResponse">
+		<wsdl:part name="parameters" element="trc:SetRecordingJobConfigurationResponse"/>
+	</wsdl:message>
+	<wsdl:message name="GetRecordingJobConfigurationRequest">
+		<wsdl:part name="parameters" element="trc:GetRecordingJobConfiguration"/>
+	</wsdl:message>
+	<wsdl:message name="GetRecordingJobConfigurationResponse">
+		<wsdl:part name="parameters" element="trc:GetRecordingJobConfigurationResponse"/>
+	</wsdl:message>
+	<wsdl:message name="SetRecordingJobModeRequest">
+		<wsdl:part name="parameters" element="trc:SetRecordingJobMode"/>
+	</wsdl:message>
+	<wsdl:message name="SetRecordingJobModeResponse">
+		<wsdl:part name="parameters" element="trc:SetRecordingJobModeResponse"/>
+	</wsdl:message>
+	<wsdl:message name="GetRecordingJobStateRequest">
+		<wsdl:part name="parameters" element="trc:GetRecordingJobState"/>
+	</wsdl:message>
+	<wsdl:message name="GetRecordingJobStateResponse">
+		<wsdl:part name="parameters" element="trc:GetRecordingJobStateResponse"/>
+	</wsdl:message>
+	<wsdl:message name="DeleteDataRequest">
+		<wsdl:part name="parameters" element="trc:DeleteData"/>
+	</wsdl:message>
+	<wsdl:message name="DeleteDataResponse">
+		<wsdl:part name="parameters" element="trc:DeleteDataResponse"/>
+	</wsdl:message>
+	<wsdl:message name="LockRecordingRequest">
+		<wsdl:part name="parameters" element="trc:LockRecording"/>
+	</wsdl:message>
+	<wsdl:message name="LockRecordingResponse">
+		<wsdl:part name="parameters" element="trc:LockRecordingResponse"/>
+	</wsdl:message>
+	<wsdl:message name="UnlockRecordingRequest">
+		<wsdl:part name="parameters" element="trc:UnlockRecording"/>
+	</wsdl:message>
+	<wsdl:message name="UnlockRecordingResponse">
+		<wsdl:part name="parameters" element="trc:UnlockRecordingResponse"/>
+	</wsdl:message>
+	<wsdl:message name="GetLockedRangesRequest">
+		<wsdl:part name="parameters" element="trc:GetLockedRanges"/>
+	</wsdl:message>
+	<wsdl:message name="GetLockedRangesResponse">
+		<wsdl:part name="parameters" element="trc:GetLockedRangesResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="RecordingPort">
+		<wsdl:operation name="CreateRecording">
+			<wsdl:input message="trc:CreateRecordingRequest"/>
+			<wsdl:output message="trc:CreateRecordingResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteRecording">
+			<wsdl:input message="trc:DeleteRecordingRequest"/>
+			<wsdl:output message="trc:DeleteRecordingResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetRecordings">
+			<wsdl:input message="trc:GetRecordingsRequest"/>
+			<wsdl:output message="trc:GetRecordingsResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="SetRecordingConfiguration">
+			<wsdl:input message="trc:SetRecordingConfigurationRequest"/>
+			<wsdl:output message="trc:SetRecordingConfigurationResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetRecordingConfiguration">
+			<wsdl:input message="trc:GetRecordingConfigurationRequest"/>
+			<wsdl:output message="trc:GetRecordingConfigurationResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="CreateTrack">
+			<wsdl:input message="trc:CreateTrackRequest"/>
+			<wsdl:output message="trc:CreateTrackResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteTrack">
+			<wsdl:input message="trc:DeleteTrackRequest"/>
+			<wsdl:output message="trc:DeleteTrackResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetTrackConfiguration">
+			<wsdl:input message="trc:GetTrackConfigurationRequest"/>
+			<wsdl:output message="trc:GetTrackConfigurationResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="SetTrackConfiguration">
+			<wsdl:input message="trc:SetTrackConfigurationRequest"/>
+			<wsdl:output message="trc:SetTrackConfigurationResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="CreateRecordingJob">
+			<wsdl:input message="trc:CreateRecordingJobRequest"/>
+			<wsdl:output message="trc:CreateRecordingJobResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteRecordingJob">
+			<wsdl:input message="trc:DeleteRecordingJobRequest"/>
+			<wsdl:output message="trc:DeleteRecordingJobResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetRecordingJobs">
+			<wsdl:input message="trc:GetRecordingJobsRequest"/>
+			<wsdl:output message="trc:GetRecordingJobsResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="SetRecordingJobConfiguration">
+			<wsdl:input message="trc:SetRecordingJobConfigurationRequest"/>
+			<wsdl:output message="trc:SetRecordingJobConfigurationResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetRecordingJobConfiguration">
+			<wsdl:input message="trc:GetRecordingJobConfigurationRequest"/>
+			<wsdl:output message="trc:GetRecordingJobConfigurationResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="SetRecordingJobMode">
+			<wsdl:input message="trc:SetRecordingJobModeRequest"/>
+			<wsdl:output message="trc:SetRecordingJobModeResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetRecordingJobState">
+			<wsdl:input message="trc:GetRecordingJobStateRequest"/>
+			<wsdl:output message="trc:GetRecordingJobStateResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteData">
+			<wsdl:input message="trc:DeleteDataRequest"/>
+			<wsdl:output message="trc:DeleteDataResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="LockRecording">
+			<wsdl:input message="trc:LockRecordingRequest"/>
+			<wsdl:output message="trc:LockRecordingResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="UnlockRecording">
+			<wsdl:input message="trc:UnlockRecordingRequest"/>
+			<wsdl:output message="trc:UnlockRecordingResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetLockedRanges">
+			<wsdl:input message="trc:GetLockedRangesRequest"/>
+			<wsdl:output message="trc:GetLockedRangesResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="RecordingBinding" type="trc:RecordingPort">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="CreateRecording">
+			<soap:operation soapAction="http://www.onvif.org/recording/wsdl/CreateRecording"  />
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteRecording">
+			<soap:operation soapAction="http://www.onvif.org/recording/wsdl/DeleteRecording"  />
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetRecordings">
+			<soap:operation soapAction="http://www.onvif.org/recording/wsdl/GetRecordings"  />
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="SetRecordingConfiguration">
+			<soap:operation soapAction="http://www.onvif.org/recording/wsdl/SetRecordingConfiguration"  />
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetRecordingConfiguration">
+			<soap:operation soapAction="http://www.onvif.org/recording/wsdl/GetRecordingConfiguration"  />
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="CreateTrack">
+			<soap:operation soapAction="http://www.onvif.org/recording/wsdl/CreateTrack"  />
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteTrack">
+			<soap:operation soapAction="http://www.onvif.org/recording/wsdl/DeleteTrack"  />
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetTrackConfiguration">
+			<soap:operation soapAction="http://www.onvif.org/recording/wsdl/GetTrackConfiguration"  />
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="SetTrackConfiguration">
+			<soap:operation soapAction="http://www.onvif.org/recording/wsdl/SetTrackConfiguration"  />
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="CreateRecordingJob">
+			<soap:operation soapAction="http://www.onvif.org/recording/wsdl/CreateRecordingJob"  />
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteRecordingJob">
+			<soap:operation soapAction="http://www.onvif.org/recording/wsdl/DeleteRecordingJob"  />
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetRecordingJobs">
+			<soap:operation soapAction="http://www.onvif.org/recording/wsdl/GetRecordingJobs"  />
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="SetRecordingJobConfiguration">
+			<soap:operation soapAction="http://www.onvif.org/recording/wsdl/SetRecordingJobConfiguration"  />
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetRecordingJobConfiguration">
+			<soap:operation soapAction="http://www.onvif.org/recording/wsdl/GetRecordingJobConfiguration"  />
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="SetRecordingJobMode">
+			<soap:operation soapAction="http://www.onvif.org/recording/wsdl/SetRecordingJobMode"  />
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetRecordingJobState">
+			<soap:operation soapAction="http://www.onvif.org/recording/wsdl/GetRecordingJobState"  />
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteData">
+			<soap:operation soapAction="http://www.onvif.org/recording/wsdl/DeleteData"  />
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="LockRecording">
+			<soap:operation soapAction="http://www.onvif.org/recording/wsdl/LockRecording"  />
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UnlockRecording">
+			<soap:operation soapAction="http://www.onvif.org/recording/wsdl/UnlockRecording"  />
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetLockedRanges">
+			<soap:operation soapAction="http://www.onvif.org/recording/wsdl/GetLockedRanges"  />
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<!--===============================-->
+</wsdl:definitions>

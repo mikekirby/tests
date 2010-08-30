@@ -1,0 +1,609 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (c) 2008-2010 by ONVIF: Open Network Video Interface Forum. All rights reserved.
+
+Recipients of this document may copy, distribute, publish, or display this document so long as this copyright notice, license and disclaimer are retained with all copies of the document. No license is granted to modify this document.
+
+THIS DOCUMENT IS PROVIDED "AS IS," AND THE CORPORATION AND ITS MEMBERS AND THEIR AFFILIATES, MAKE NO REPRESENTATIONS OR WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO, WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, OR TITLE; THAT THE CONTENTS OF THIS DOCUMENT ARE SUITABLE FOR ANY PURPOSE; OR THAT THE IMPLEMENTATION OF SUCH CONTENTS WILL NOT INFRINGE ANY PATENTS, COPYRIGHTS, TRADEMARKS OR OTHER RIGHTS.
+IN NO EVENT WILL THE CORPORATION OR ITS MEMBERS OR THEIR AFFILIATES BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, PUNITIVE OR CONSEQUENTIAL DAMAGES, ARISING OUT OF OR RELATING TO ANY USE OR DISTRIBUTION OF THIS DOCUMENT, WHETHER OR NOT (1) THE CORPORATION, MEMBERS OR THEIR AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES, OR (2) SUCH DAMAGES WERE REASONABLY FORESEEABLE, AND ARISING OUT OF OR RELATING TO ANY USE OR DISTRIBUTION OF THIS DOCUMENT.  THE FOREGOING DISCLAIMER AND LIMITATION ON LIABILITY DO NOT APPLY TO, INVALIDATE, OR LIMIT REPRESENTATIONS AND WARRANTIES MADE BY THE MEMBERS AND THEIR RESPECTIVE AFFILIATES TO THE CORPORATION AND OTHER MEMBERS IN CERTAIN WRITTEN POLICIES OF THE CORPORATION.
+-->
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:trt="http://www.onvif.org/ver10/media/wsdl" xmlns:tds="http://www.onvif.org/ver10/device/wsdl" xmlns:tmd="http://www.onvif.org/deviceIO/wsdl" targetNamespace="http://www.onvif.org/deviceIO/wsdl">
+	<wsdl:import namespace="http://www.onvif.org/ver10/media/wsdl" location="http://www.onvif.org/onvif/ver10/media/wsdl/media.wsdl"/>
+	<wsdl:import namespace="http://www.onvif.org/ver10/device/wsdl" location="http://www.onvif.org/onvif/ver10/device/wsdl/devicemgmt.wsdl"/>
+	<wsdl:types>
+		<xs:schema targetNamespace="http://www.onvif.org/deviceIO/wsdl" xmlns:tt="http://www.onvif.org/ver10/schema" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+			<xs:import namespace="http://www.onvif.org/ver10/schema" schemaLocation="onvif.xsd"/>
+			<!--===============================-->
+			<xs:element name="GetVideoOutputs">
+				<xs:complexType>
+					<xs:sequence>
+				   </xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetVideoOutputsResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="VideoOutputs" type="tt:VideoOutput" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--===============================-->
+			<xs:element name="GetAudioSourceConfiguration">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="AudioSourceToken" type="tt:ReferenceToken"/>
+						<xs:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetAudioSourceConfigurationResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="AudioSourceConfiguration" type="tt:AudioSourceConfiguration"/>
+						<xs:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--===============================-->
+			<xs:element name="GetAudioOutputConfiguration">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="AudioOutputToken" type="tt:ReferenceToken"/>
+						<xs:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetAudioOutputConfigurationResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="AudioOutputConfiguration" type="tt:AudioOutputConfiguration"/>
+						<xs:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--===============================-->
+			<xs:element name="GetVideoSourceConfiguration">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="VideoSourceToken" type="tt:ReferenceToken"/>
+						<xs:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetVideoSourceConfigurationResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="VideoSourceConfiguration" type="tt:VideoSourceConfiguration"/>
+						<xs:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--===============================-->
+			<xs:element name="GetVideoOutputConfiguration">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="VideoOutputToken" type="tt:ReferenceToken"/>
+						<xs:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetVideoOutputConfigurationResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="VideoOutputConfiguration" type="tt:VideoOutputConfiguration"/>
+						<xs:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--===============================-->
+			<xs:element name="SetAudioSourceConfiguration">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Configuration" type="tt:AudioSourceConfiguration"/>
+						<xs:element name="ForcePersitance" type="xs:boolean"/>
+						<xs:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SetAudioSourceConfigurationResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--===============================-->
+			<xs:element name="SetAudioOutputConfiguration">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Configuration" type="tt:AudioOutputConfiguration"/>
+						<xs:element name="ForcePersitance" type="xs:boolean"/>
+						<xs:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SetAudioOutputConfigurationResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--===============================-->
+			<xs:element name="SetVideoSourceConfiguration">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Configuration" type="tt:VideoSourceConfiguration"/>
+						<xs:element name="ForcePersitance" type="xs:boolean"/>
+						<xs:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SetVideoSourceConfigurationResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--===============================-->
+			<xs:element name="SetVideoOutputConfiguration">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Configuration" type="tt:VideoOutputConfiguration"/>
+						<xs:element name="ForcePersitance" type="xs:boolean"/>
+						<xs:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SetVideoOutputConfigurationResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--===============================-->
+			<xs:element name="GetVideoSourceConfigurationOptions">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="VideoSourceToken" type="tt:ReferenceToken"/>
+						<xs:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetVideoSourceConfigurationOptionsResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="VideoSourceConfigurationOptions" type="tt:VideoSourceConfigurationOptions"/>
+						<xs:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--===============================-->
+			<xs:element name="GetVideoOutputConfigurationOptions">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="VideoOutputToken" type="tt:ReferenceToken"/>
+						<xs:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetVideoOutputConfigurationOptionsResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="VideoOutputConfigurationOptions" type="tt:VideoOutputConfigurationOptions"/>
+						<xs:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--===============================-->
+			<xs:element name="GetAudioSourceConfigurationOptions">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="AudioSourceToken" type="tt:ReferenceToken"/>
+						<xs:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetAudioSourceConfigurationOptionsResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="AudioSourceOptions" type="tt:AudioSourceConfigurationOptions"/>
+						<xs:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--===============================-->
+			<xs:element name="GetAudioOutputConfigurationOptions">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="AudioOutputToken" type="tt:ReferenceToken"/>
+						<xs:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetAudioOutputConfigurationOptionsResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="AudioOutputOptions" type="tt:AudioOutputConfigurationOptions"/>
+						<xs:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--===============================-->
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="GetVideoOutputsRequest">
+		<wsdl:part name="parameters" element="tmd:GetVideoOutputs"/>
+	</wsdl:message>
+	<wsdl:message name="GetVideoOutputsResponse">
+		<wsdl:part name="parameters" element="tmd:GetVideoOutputsResponse"/>
+	</wsdl:message>
+	<wsdl:message name="GetAudioOutputsRequest">
+		<wsdl:part name="parameters" element="trt:GetAudioOutputs"/>
+	</wsdl:message>
+	<wsdl:message name="GetAudioOutputsResponse">
+		<wsdl:part name="parameters" element="trt:GetAudioOutputsResponse"/>
+	</wsdl:message>
+	<wsdl:message name="GetVideoSourcesRequest">
+		<wsdl:part name="parameters" element="trt:GetVideoSources"/>
+	</wsdl:message>
+	<wsdl:message name="GetVideoSourcesResponse">
+		<wsdl:part name="parameters" element="trt:GetVideoSourcesResponse"/>
+	</wsdl:message>
+	<wsdl:message name="GetAudioSourcesRequest">
+		<wsdl:part name="parameters" element="trt:GetAudioSources"/>
+	</wsdl:message>
+	<wsdl:message name="GetAudioSourcesResponse">
+		<wsdl:part name="parameters" element="trt:GetAudioSourcesResponse"/>
+	</wsdl:message>
+	<wsdl:message name="GetVideoSourceConfigurationRequest">
+		<wsdl:part name="parameters" element="tmd:GetVideoSourceConfiguration"/>
+	</wsdl:message>
+	<wsdl:message name="GetVideoSourceConfigurationResponse">
+		<wsdl:part name="parameters" element="tmd:GetVideoSourceConfigurationResponse"/>
+	</wsdl:message>
+	<wsdl:message name="GetVideoOutputConfigurationRequest">
+		<wsdl:part name="parameters" element="tmd:GetVideoOutputConfiguration"/>
+	</wsdl:message>
+	<wsdl:message name="GetVideoOutputConfigurationResponse">
+		<wsdl:part name="parameters" element="tmd:GetVideoOutputConfigurationResponse"/>
+	</wsdl:message>
+	<wsdl:message name="GetAudioSourceConfigurationRequest">
+		<wsdl:part name="parameters" element="tmd:GetAudioSourceConfiguration"/>
+	</wsdl:message>
+	<wsdl:message name="GetAudioSourceConfigurationResponse">
+		<wsdl:part name="parameters" element="tmd:GetAudioSourceConfigurationResponse"/>
+	</wsdl:message>
+	<wsdl:message name="GetAudioOutputConfigurationRequest">
+		<wsdl:part name="parameters" element="tmd:GetAudioOutputConfiguration"/>
+	</wsdl:message>
+	<wsdl:message name="GetAudioOutputConfigurationResponse">
+		<wsdl:part name="parameters" element="tmd:GetAudioOutputConfigurationResponse"/>
+	</wsdl:message>
+	<wsdl:message name="SetVideoSourceConfigurationRequest">
+		<wsdl:part name="parameters" element="tmd:SetVideoSourceConfiguration"/>
+	</wsdl:message>
+	<wsdl:message name="SetVideoSourceConfigurationResponse">
+		<wsdl:part name="parameters" element="tmd:SetVideoSourceConfigurationResponse"/>
+	</wsdl:message>
+	<wsdl:message name="SetVideoOutputConfigurationRequest">
+		<wsdl:part name="parameters" element="tmd:SetVideoOutputConfiguration"/>
+	</wsdl:message>
+	<wsdl:message name="SetVideoOutputConfigurationResponse">
+		<wsdl:part name="parameters" element="tmd:SetVideoOutputConfigurationResponse"/>
+	</wsdl:message>
+	<wsdl:message name="SetAudioSourceConfigurationRequest">
+		<wsdl:part name="parameters" element="tmd:SetAudioSourceConfiguration"/>
+	</wsdl:message>
+	<wsdl:message name="SetAudioSourceConfigurationResponse">
+		<wsdl:part name="parameters" element="tmd:SetAudioSourceConfigurationResponse"/>
+	</wsdl:message>
+	<wsdl:message name="SetAudioOutputConfigurationRequest">
+		<wsdl:part name="parameters" element="tmd:SetAudioOutputConfiguration"/>
+	</wsdl:message>
+	<wsdl:message name="SetAudioOutputConfigurationResponse">
+		<wsdl:part name="parameters" element="tmd:SetAudioOutputConfigurationResponse"/>
+	</wsdl:message>
+	<wsdl:message name="GetVideoSourceConfigurationOptionsRequest">
+		<wsdl:part name="parameters" element="tmd:GetVideoSourceConfigurationOptions"/>
+	</wsdl:message>
+	<wsdl:message name="GetVideoSourceConfigurationOptionsResponse">
+		<wsdl:part name="parameters" element="tmd:GetVideoSourceConfigurationOptionsResponse"/>
+	</wsdl:message>
+	<wsdl:message name="GetVideoOutputConfigurationOptionsRequest">
+		<wsdl:part name="parameters" element="tmd:GetVideoOutputConfigurationOptions"/>
+	</wsdl:message>
+	<wsdl:message name="GetVideoOutputConfigurationOptionsResponse">
+		<wsdl:part name="parameters" element="tmd:GetVideoOutputConfigurationOptionsResponse"/>
+	</wsdl:message>
+	<wsdl:message name="GetAudioSourceConfigurationOptionsRequest">
+		<wsdl:part name="parameters" element="tmd:GetAudioSourceConfigurationOptions"/>
+	</wsdl:message>
+	<wsdl:message name="GetAudioSourceConfigurationOptionsResponse">
+		<wsdl:part name="parameters" element="tmd:GetAudioSourceConfigurationOptionsResponse"/>
+	</wsdl:message>
+	<wsdl:message name="GetAudioOutputConfigurationOptionsRequest">
+		<wsdl:part name="parameters" element="tmd:GetAudioOutputConfigurationOptions"/>
+	</wsdl:message>
+	<wsdl:message name="GetAudioOutputConfigurationOptionsResponse">
+		<wsdl:part name="parameters" element="tmd:GetAudioOutputConfigurationOptionsResponse"/>
+	</wsdl:message>
+	<wsdl:message name="GetRelayOutputsRequest">
+		<wsdl:part name="parameters" element="tds:GetRelayOutputs"/>
+	</wsdl:message>
+	<wsdl:message name="GetRelayOutputsResponse">
+		<wsdl:part name="parameters" element="tds:GetRelayOutputsResponse"/>
+	</wsdl:message>
+	<wsdl:message name="SetRelayOutputSettingsRequest">
+		<wsdl:part name="parameters" element="tds:SetRelayOutputSettings"/>
+	</wsdl:message>
+	<wsdl:message name="SetRelayOutputSettingsResponse">
+		<wsdl:part name="parameters" element="tds:SetRelayOutputSettingsResponse"/>
+	</wsdl:message>
+	<wsdl:message name="SetRelayOutputStateRequest">
+		<wsdl:part name="parameters" element="tds:SetRelayOutputState"/>
+	</wsdl:message>
+	<wsdl:message name="SetRelayOutputStateResponse">
+		<wsdl:part name="parameters" element="tds:SetRelayOutputStateResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="DeviceIOPort">
+		<wsdl:operation name="GetAudioSources">
+			<wsdl:input message="tmd:GetAudioSourcesRequest"/>
+			<wsdl:output message="tmd:GetAudioSourcesResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetAudioOutputs">
+			<wsdl:input message="tmd:GetAudioOutputsRequest"/>
+			<wsdl:output message="tmd:GetAudioOutputsResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetVideoSources">
+			<wsdl:input message="tmd:GetVideoSourcesRequest"/>
+			<wsdl:output message="tmd:GetVideoSourcesResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetVideoOutputs">
+			<wsdl:input message="tmd:GetVideoOutputsRequest"/>
+			<wsdl:output message="tmd:GetVideoOutputsResponse"/>
+		</wsdl:operation>
+		<!--===============================-->
+		<wsdl:operation name="GetVideoSourceConfiguration">
+			<wsdl:input message="tmd:GetVideoSourceConfigurationRequest"/>
+			<wsdl:output message="tmd:GetVideoSourceConfigurationResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetVideoOutputConfiguration">
+			<wsdl:input message="tmd:GetVideoOutputConfigurationRequest"/>
+			<wsdl:output message="tmd:GetVideoOutputConfigurationResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetAudioSourceConfiguration">
+			<wsdl:input message="tmd:GetAudioSourceConfigurationRequest"/>
+			<wsdl:output message="tmd:GetAudioSourceConfigurationResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetAudioOutputConfiguration">
+			<wsdl:input message="tmd:GetAudioOutputConfigurationRequest"/>
+			<wsdl:output message="tmd:GetAudioOutputConfigurationResponse"/>
+		</wsdl:operation>
+		<!--===============================-->
+		<wsdl:operation name="SetVideoSourceConfiguration">
+			<wsdl:input message="tmd:SetVideoSourceConfigurationRequest"/>
+			<wsdl:output message="tmd:SetVideoSourceConfigurationResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="SetVideoOutputConfiguration">
+			<wsdl:input message="tmd:SetVideoOutputConfigurationRequest"/>
+			<wsdl:output message="tmd:SetVideoOutputConfigurationResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="SetAudioSourceConfiguration">
+			<wsdl:input message="tmd:SetAudioSourceConfigurationRequest"/>
+			<wsdl:output message="tmd:SetAudioSourceConfigurationResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="SetAudioOutputConfiguration">
+			<wsdl:input message="tmd:SetAudioOutputConfigurationRequest"/>
+			<wsdl:output message="tmd:SetAudioOutputConfigurationResponse"/>
+		</wsdl:operation>
+		<!--===============================-->
+		<wsdl:operation name="GetVideoSourceConfigurationOptions">
+			<wsdl:input message="tmd:GetVideoSourceConfigurationOptionsRequest"/>
+			<wsdl:output message="tmd:GetVideoSourceConfigurationOptionsResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetVideoOutputConfigurationOptions">
+			<wsdl:input message="tmd:GetVideoOutputConfigurationOptionsRequest"/>
+			<wsdl:output message="tmd:GetVideoOutputConfigurationOptionsResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetAudioSourceConfigurationOptions">
+			<wsdl:input message="tmd:GetAudioSourceConfigurationOptionsRequest"/>
+			<wsdl:output message="tmd:GetAudioSourceConfigurationOptionsResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetAudioOutputConfigurationOptions">
+			<wsdl:input message="tmd:GetAudioOutputConfigurationOptionsRequest"/>
+			<wsdl:output message="tmd:GetAudioOutputConfigurationOptionsResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetRelayOutputs">
+			<wsdl:input message="tmd:GetRelayOutputsRequest"/>
+			<wsdl:output message="tmd:GetRelayOutputsResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="SetRelayOutputSettings">
+			<wsdl:input message="tmd:SetRelayOutputSettingsRequest"/>
+			<wsdl:output message="tmd:SetRelayOutputSettingsResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="SetRelayOutputState">
+			<wsdl:input message="tmd:SetRelayOutputStateRequest"/>
+			<wsdl:output message="tmd:SetRelayOutputStateResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="DeviceIOBinding" type="tmd:DeviceIOPort">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="GetAudioSources">
+			<soap:operation soapAction="http://www.onvif.org/deviceIO/wsdl/GetAudioSources"  />
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetAudioOutputs">
+			<soap:operation soapAction="http://www.onvif.org/deviceIO/wsdl/GetAudioOutputs"  />
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetVideoSources">
+			<soap:operation soapAction="http://www.onvif.org/deviceIO/wsdl/GetVideoSources"  />
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetVideoOutputs">
+			<soap:operation soapAction="http://www.onvif.org/deviceIO/wsdl/GetVideoOutputs"  />
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<!--===============================-->
+		<wsdl:operation name="GetVideoSourceConfiguration">
+			<soap:operation soapAction="http://www.onvif.org/deviceIO/wsdl/GetVideoSourceConfiguration"  />
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetVideoOutputConfiguration">
+			<soap:operation soapAction="http://www.onvif.org/deviceIO/wsdl/GetVideoOutputConfiguration"  />
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetAudioSourceConfiguration">
+			<soap:operation soapAction="http://www.onvif.org/deviceIO/wsdl/GetAudioSourceConfiguration"  />
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetAudioOutputConfiguration">
+			<soap:operation soapAction="http://www.onvif.org/deviceIO/wsdl/GetAudioOutputConfiguration"  />
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<!--===============================-->
+		<wsdl:operation name="SetVideoSourceConfiguration">
+			<soap:operation soapAction="http://www.onvif.org/deviceIO/wsdl/SetVideoSourceConfiguration"  />
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="SetVideoOutputConfiguration">
+			<soap:operation soapAction="http://www.onvif.org/deviceIO/wsdl/SetVideoOutputConfiguration"  />
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="SetAudioSourceConfiguration">
+			<soap:operation soapAction="http://www.onvif.org/deviceIO/wsdl/SetAudioSourceConfiguration"  />
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="SetAudioOutputConfiguration">
+			<soap:operation soapAction="http://www.onvif.org/deviceIO/wsdl/SetAudioOutputConfiguration"  />
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<!--===============================-->
+		<wsdl:operation name="GetVideoSourceConfigurationOptions">
+			<soap:operation soapAction="http://www.onvif.org/deviceIO/wsdl/GetVideoSourceConfigurationOptions"  />
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetVideoOutputConfigurationOptions">
+			<soap:operation soapAction="http://www.onvif.org/deviceIO/wsdl/GetVideoOutputConfigurationOptions"  />
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetAudioSourceConfigurationOptions">
+			<soap:operation soapAction="http://www.onvif.org/deviceIO/wsdl/GetAudioSourceConfigurationOptions"  />
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetAudioOutputConfigurationOptions">
+			<soap:operation soapAction="http://www.onvif.org/deviceIO/wsdl/GetAudioOutputConfigurationOptions"  />
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetRelayOutputs">
+			<soap:operation soapAction="http://www.onvif.org/deviceIO/wsdl/GetRelayOutputs"  />
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="SetRelayOutputSettings">
+			<soap:operation soapAction="http://www.onvif.org/deviceIO/wsdl/SetRelayOutputSettings"  />
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="SetRelayOutputState">
+			<soap:operation soapAction="http://www.onvif.org/deviceIO/wsdl/SetRelayOutputState"  />
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+</wsdl:definitions>
